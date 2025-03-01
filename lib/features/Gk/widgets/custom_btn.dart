@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:iexam/core/theme/app_pallete.dart';
 
 class CustomBtn {
-  static customtn(String text, double width, VoidCallback onTap) {
+  static customBtn(String text, double width, VoidCallback onTap) {
     return TextButton(
       onPressed: onTap,
       child: Container(
@@ -18,7 +18,7 @@ class CustomBtn {
                 ]),
             borderRadius: BorderRadius.circular(15)),
         child: Padding(
-          padding: EdgeInsets.all(12),
+          padding: const EdgeInsets.all(12),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:iexam/core/theme/app_pallete.dart';
 import 'package:iexam/features/CurrentAffairs/pages/currentaffair.dart';
-import 'package:iexam/features/Gk/pages/gkpage.dart';
+import 'package:iexam/features/Gk/pages/gkhome.dart';
 import 'package:iexam/features/Quiz/pages/quiz_page.dart';
 import 'package:iexam/features/home/view/pages/home_page.dart';
 
@@ -16,7 +16,7 @@ class _BottomNavState extends State<BottomNav> {
   int currentIndex = 0;
   List<Widget> pages = [
     const HomePage(),
-    const GkPage(),
+    GkHome(),
     const CurrentAffair(),
     const QuizPage(),
   ];

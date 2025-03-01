@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:iexam/core/theme/app_pallete.dart';
+import 'package:iexam/features/CurrentAffairs/pages/learnca.dart';
 import 'package:iexam/features/CurrentAffairs/widgets/custom_box.dart';
 
 class CurrentAffair extends StatelessWidget {
@@ -59,19 +60,14 @@ class CurrentAffair extends StatelessWidget {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          CustomBox.cutomBox('Today', Icons.today),
-                          CustomBox.cutomBox('Weekly', Icons.weekend_outlined)
-                        ],
-                      ),
-                      SizedBox(
-                        height: he * 0.045,
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          CustomBox.cutomBox('Month', Icons.today),
+                          CustomBox.cutomBox('Today', Icons.today, () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => LearningCA()));
+                          }),
                           CustomBox.cutomBox(
-                              'Last Month', Icons.weekend_outlined)
+                              'Weekly', Icons.weekend_outlined, () {})
                         ],
                       ),
                       SizedBox(
@@ -80,8 +76,19 @@ class CurrentAffair extends StatelessWidget {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          CustomBox.cutomBox('Year', Icons.today),
-                          CustomBox.cutomBox('Last Year', Icons.today)
+                          CustomBox.cutomBox('Month', Icons.today, () {}),
+                          CustomBox.cutomBox(
+                              'Last Month', Icons.weekend_outlined, () {})
+                        ],
+                      ),
+                      SizedBox(
+                        height: he * 0.045,
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          CustomBox.cutomBox('Year', Icons.today, () {}),
+                          CustomBox.cutomBox('Last Year', Icons.today, () {})
                         ],
                       ),
                     ],

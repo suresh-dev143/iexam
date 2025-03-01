@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:iexam/core/theme/app_pallete.dart';
-import 'package:iexam/features/Gk/widgets/CustomBtn.dart';
+import 'package:iexam/features/Gk/widgets/custom_btn.dart';
 
 class GkPage extends StatelessWidget {
   const GkPage({super.key});
@@ -78,27 +78,27 @@ class GkPage extends StatelessWidget {
                     SizedBox(
                       height: he * 0.03,
                     ),
-                    CustomBtn.customtn('Static GK', he * 0.4, () {}),
+                    CustomBtn.customBtn('Static GK', he * 0.4, () {}),
                     SizedBox(
                       height: he * 0.005,
                     ),
-                    CustomBtn.customtn('Hindi GK', he * 0.4, () {}),
+                    CustomBtn.customBtn('Hindi GK', he * 0.4, () {}),
                     SizedBox(
                       height: he * 0.005,
                     ),
-                    CustomBtn.customtn('Computer GK', he * 0.4, () {}),
+                    CustomBtn.customBtn('Computer GK', he * 0.4, () {}),
                     SizedBox(
                       height: he * 0.005,
                     ),
-                    CustomBtn.customtn('Biology GK', he * 0.4, () {}),
+                    CustomBtn.customBtn('Biology GK', he * 0.4, () {}),
                     SizedBox(
                       height: he * 0.005,
                     ),
-                    CustomBtn.customtn('English GK', he * 0.4, () {}),
+                    CustomBtn.customBtn('English GK', he * 0.4, () {}),
                     SizedBox(
                       height: he * 0.005,
                     ),
-                    CustomBtn.customtn('Geography GK', he * 0.4, () {}),
+                    CustomBtn.customBtn('Geography GK', he * 0.4, () {}),
                   ],
                 ),
               ),

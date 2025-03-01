@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:iexam/core/theme/app_pallete.dart';
+import 'package:iexam/features/Quiz/pages/caquiz/catest.dart';
+import 'package:iexam/features/Quiz/pages/gkquiz/gkquizsubject.dart';
 
 class QuizPage extends StatelessWidget {
   const QuizPage({super.key});
@@ -36,26 +38,35 @@ class QuizPage extends StatelessWidget {
                             color: Pallete.blueColor),
                         child: Padding(
                           padding: EdgeInsets.all(he * 0.02),
-                          child: Column(
-                            children: [
-                              CircleAvatar(
-                                radius: he * 0.1,
-                                child: ClipOval(
-                                  clipBehavior: Clip.antiAlias,
-                                  child: Image.asset(
-                                    'assets/images/image(7).png',
-                                    fit: BoxFit.cover,
+                          child: TextButton(
+                            onPressed: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          const GKQuizSubject()));
+                            },
+                            child: Column(
+                              children: [
+                                CircleAvatar(
+                                  radius: he * 0.1,
+                                  child: ClipOval(
+                                    clipBehavior: Clip.antiAlias,
+                                    child: Image.asset(
+                                      'assets/images/image(7).png',
+                                      fit: BoxFit.cover,
+                                    ),
                                   ),
                                 ),
-                              ),
-                              const Text(
-                                'GK Quiz',
-                                style: TextStyle(
-                                    fontSize: 30,
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.bold),
-                              )
-                            ],
+                                const Text(
+                                  'GK Quiz',
+                                  style: TextStyle(
+                                      fontSize: 30,
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.bold),
+                                )
+                              ],
+                            ),
                           ),
                         ),
                       ),
@@ -72,26 +83,34 @@ class QuizPage extends StatelessWidget {
                             color: Pallete.blueColor),
                         child: Padding(
                           padding: EdgeInsets.all(he * 0.02),
-                          child: Column(
-                            children: [
-                              CircleAvatar(
-                                radius: he * 0.1,
-                                child: ClipOval(
-                                  clipBehavior: Clip.antiAlias,
-                                  child: Image.asset(
-                                    'assets/images/image(8).png',
-                                    fit: BoxFit.cover,
+                          child: TextButton(
+                            onPressed: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => const CATest()));
+                            },
+                            child: Column(
+                              children: [
+                                CircleAvatar(
+                                  radius: he * 0.1,
+                                  child: ClipOval(
+                                    clipBehavior: Clip.antiAlias,
+                                    child: Image.asset(
+                                      'assets/images/image(8).png',
+                                      fit: BoxFit.cover,
+                                    ),
                                   ),
                                 ),
-                              ),
-                              const Text(
-                                'C.A Quiz',
-                                style: TextStyle(
-                                    fontSize: 30,
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.bold),
-                              )
-                            ],
+                                const Text(
+                                  'C.A Quiz',
+                                  style: TextStyle(
+                                      fontSize: 30,
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                              ],
+                            ),
                           ),
                         ),
                       ),

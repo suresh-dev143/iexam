@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:iexam/core/theme/app_pallete.dart';
+import 'package:iexam/features/sidecomponents/about.dart';
+import 'package:iexam/features/sidecomponents/privacypolicy.dart';
+import 'package:iexam/features/sidecomponents/profile.dart';
+import 'package:iexam/features/sidecomponents/settings.dart';
 
 class Sidebar extends StatelessWidget {
   const Sidebar({super.key});
@@ -48,16 +52,31 @@ class Sidebar extends StatelessWidget {
               const Icon(
                 Icons.policy,
                 color: Colors.white,
-              ),
-              () {}),
-          CustomBtn.iconButton('Edit Profile',
-              const Icon(Icons.edit, color: Colors.white), () {}),
-          CustomBtn.iconButton('Settings',
-              const Icon(Icons.settings, color: Colors.white), () {}),
+              ), () {
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => const PrivacyPolicyPage()));
+          }),
+          CustomBtn.iconButton(
+              'Edit Profile', const Icon(Icons.edit, color: Colors.white), () {
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => const EditProfilePage()));
+          }),
+          CustomBtn.iconButton(
+              'Settings', const Icon(Icons.settings, color: Colors.white), () {
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context) => const SettingsPage()));
+          }),
           CustomBtn.iconButton('Share the App',
               const Icon(Icons.share, color: Colors.white), () {}),
           CustomBtn.iconButton('About Us',
-              const Icon(Icons.cast_for_education, color: Colors.white), () {}),
+              const Icon(Icons.cast_for_education, color: Colors.white), () {
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context) => const AboutUsPage()));
+          }),
           CustomBtn.iconButton(
               'Logout', const Icon(Icons.logout, color: Colors.white), () {}),
         ]),
