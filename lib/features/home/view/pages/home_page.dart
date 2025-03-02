@@ -1,173 +1,537 @@
 import 'package:flutter/material.dart';
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:iexam/core/theme/app_pallete.dart';
-import 'package:iexam/features/home/view/pages/carousel_slider.dart';
+import 'package:iexam/features/auth/view/widgets/gradiant_btn.dart';
 import 'package:iexam/features/home/view/pages/sidebar.dart';
-import 'package:iexam/features/home/view/widgets/custom_ui.dart';
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
   const HomePage({super.key});
+
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  int _currentCarouselIndex = 0;
+
+  final List<Map<String, dynamic>> carouselItems = [
+    {
+      "title": "Prepare for Success",
+      "subtitle": "Start your learning journey today",
+      "image": "assets/images/computer.png"
+    },
+    {
+      "title": "Daily Quiz Challenges",
+      "subtitle": "Test your knowledge daily",
+      "image": "assets/images/geography.png"
+    },
+    {
+      "title": "Stay Updated",
+      "subtitle": "Latest current affairs at your fingertips",
+      "image": "assets/images/hindi.png"
+    },
+  ];
+
   @override
   Widget build(BuildContext context) {
-    var he = MediaQuery.of(context).size.height;
     return Scaffold(
-      backgroundColor: Pallete.blueDarkColor,
-      appBar: _appBar(context),
       drawer: const Sidebar(),
+      backgroundColor: Pallete.blueDarkColor,
+      appBar: AppBar(
+        backgroundColor: Pallete.blueDarkColor,
+        title: const Text(
+          "i-Exam",
+          style: TextStyle(color: Colors.white),
+        ),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.notifications_outlined, color: Colors.white),
+            onPressed: () {
+              // Handle notifications
+            },
+          ),
+          IconButton(
+            icon: const Icon(Icons.person_outline, color: Colors.white),
+            onPressed: () {
+              // Handle profile
+            },
+          ),
+        ],
+      ),
       body: SingleChildScrollView(
-        child: Padding(
-          padding: EdgeInsets.symmetric(vertical: he * 0.012),
-          child: Column(
-            children: [
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: he * 0.05),
-                child: const SizedBox(
-                  child: CarouselWithIndicatorDemo(),
-                ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            // Carousel Slider
+            CarouselSlider(
+              options: CarouselOptions(
+                height: 200.0,
+                autoPlay: true,
+                enlargeCenterPage: true,
+                aspectRatio: 16 / 9,
+                autoPlayCurve: Curves.fastOutSlowIn,
+                enableInfiniteScroll: true,
+                autoPlayAnimationDuration: const Duration(milliseconds: 800),
+                viewportFraction: 0.8,
+                onPageChanged: (index, reason) {
+                  setState(() {
+                    _currentCarouselIndex = index;
+                  });
+                },
               ),
-              Container(
-                height: double.maxFinite,
-                decoration: BoxDecoration(
-                    color: Colors.grey.shade200,
-                    borderRadius:
-                        const BorderRadius.vertical(top: Radius.circular(30))),
-                child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Padding(
-                        padding:
-                            EdgeInsets.only(left: he * 0.02, top: he * 0.02),
-                        child: CustomUi.homeHeading('CURRENT AFFAIRS'),
-                      ),
-                      SingleChildScrollView(
-                        scrollDirection: Axis.horizontal,
-                        child: Padding(
-                          padding:
-                              EdgeInsets.only(left: he * 0.02, top: he * 0.01),
-                          child: Row(
-                            children: [
-                              InkWell(child: CustomUi.currentBox('Today', 90)),
-                              const SizedBox(
-                                width: 10,
-                              ),
-                              InkWell(
-                                  child: CustomUi.currentBox('This week', 130)),
-                              const SizedBox(
-                                width: 10,
-                              ),
-                              InkWell(child: CustomUi.currentBox('More', 90)),
-                            ],
-                          ),
-                        ),
-                      ),
-                      Padding(
-                        padding:
-                            EdgeInsets.only(left: he * 0.02, top: he * 0.02),
-                        child: CustomUi.homeHeading('GENERAL KNOWLEDGE'),
-                      ),
-                      Padding(
-                          padding:
-                              EdgeInsets.only(left: he * 0.02, top: he * 0.01),
-                          child: Row(
-                            children: [
-                              CustomUi.gkBox('Static GK', 'static.png'),
-                              SizedBox(
-                                width: he * 0.01,
-                              ),
-                              CustomUi.gkBox('Social Science', 'social.png'),
-                              SizedBox(
-                                width: he * 0.01,
-                              ),
-                              CustomUi.gkBox('Hindi', 'hindi.png'),
-                            ],
-                          )),
-                      Padding(
-                        padding: EdgeInsets.only(top: he * 0.02),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Container(
-                                height: 45,
-                                width: he * 0.3,
-                                alignment: Alignment.center,
-                                decoration: BoxDecoration(
-                                    gradient: LinearGradient(
-                                      colors: [
-                                        Pallete.blueGradient1,
-                                        Pallete.blueGradient2
-                                      ],
-                                      begin: Alignment.bottomLeft,
-                                      end: Alignment.topRight,
-                                    ),
-                                    borderRadius: BorderRadius.circular(15)),
-                                child: ElevatedButton(
-                                  onPressed: () {},
-                                  style: ElevatedButton.styleFrom(
-                                      backgroundColor: Colors.transparent,
-                                      shadowColor: Colors.transparent),
-                                  child: const Text('More',
-                                      style: TextStyle(
-                                        fontSize: 15,
-                                        color: Colors.white,
-                                      )),
-                                )),
+              items: carouselItems.map((item) {
+                return Builder(
+                  builder: (BuildContext context) {
+                    return Container(
+                      width: MediaQuery.of(context).size.width,
+                      margin: const EdgeInsets.symmetric(horizontal: 5.0),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(15),
+                        gradient: LinearGradient(
+                          begin: Alignment.topLeft,
+                          end: Alignment.bottomRight,
+                          colors: [
+                            Pallete.gradient1,
+                            Pallete.gradient2,
                           ],
                         ),
                       ),
-                      Padding(
-                        padding:
-                            EdgeInsets.only(left: he * 0.02, top: he * 0.02),
-                        child: CustomUi.homeHeading('QUIZ TEST'),
-                      ),
-                      Padding(
-                          padding:
-                              EdgeInsets.only(left: he * 0.02, top: he * 0.01),
-                          child: Row(
-                            children: [
-                              CustomUi.quizBox('Current Affairs'),
-                              SizedBox(
-                                width: he * 0.03,
+                      child: Stack(
+                        children: [
+                          ClipRRect(
+                            borderRadius: BorderRadius.circular(15),
+                            child: Image.asset(
+                              item["image"],
+                              fit: BoxFit.cover,
+                              width: double.infinity,
+                            ),
+                          ),
+                          Container(
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(15),
+                              gradient: LinearGradient(
+                                begin: Alignment.topCenter,
+                                end: Alignment.bottomCenter,
+                                colors: [
+                                  Colors.transparent,
+                                  Colors.black.withOpacity(0.7),
+                                ],
                               ),
-                              CustomUi.quizBox('GK Quiz'),
-                            ],
-                          )),
-                    ]),
-              )
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.all(20.0),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.end,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  item["title"],
+                                  style: const TextStyle(
+                                    fontSize: 24,
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.white,
+                                  ),
+                                ),
+                                const SizedBox(height: 8),
+                                Text(
+                                  item["subtitle"],
+                                  style: const TextStyle(
+                                    fontSize: 16,
+                                    color: Colors.white70,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                    );
+                  },
+                );
+              }).toList(),
+            ),
+
+            // Carousel Indicators
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: carouselItems.asMap().entries.map((entry) {
+                return Container(
+                  width: 8.0,
+                  height: 8.0,
+                  margin: const EdgeInsets.symmetric(
+                    vertical: 8.0,
+                    horizontal: 4.0,
+                  ),
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: _currentCarouselIndex == entry.key
+                        ? Pallete.gradient1
+                        : Colors.white.withOpacity(0.4),
+                  ),
+                );
+              }).toList(),
+            ),
+
+            // Quick Actions
+            Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const Text(
+                    "Quick Actions",
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  const SizedBox(height: 16),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      _buildQuickActionButton(
+                        "Daily Quiz",
+                        Icons.quiz,
+                        () {
+                          // Navigate to daily quiz
+                        },
+                      ),
+                      _buildQuickActionButton(
+                        "Current Affairs",
+                        Icons.newspaper,
+                        () {
+                          // Navigate to current affairs
+                        },
+                      ),
+                      _buildQuickActionButton(
+                        "Bookmarks",
+                        Icons.bookmark,
+                        () {
+                          // Navigate to bookmarks
+                        },
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+
+            // GK Subjects Section
+            Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      const Text(
+                        "GK Subjects",
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      TextButton(
+                        onPressed: () {
+                          // Navigate to all subjects
+                        },
+                        child: Text(
+                          "View All",
+                          style: TextStyle(
+                            color: Pallete.gradient1,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 16),
+                  SizedBox(
+                    height: 160,
+                    child: ListView(
+                      scrollDirection: Axis.horizontal,
+                      children: [
+                        _buildSubjectCard(
+                          "History",
+                          Icons.history_edu,
+                          "Ancient civilizations to modern era",
+                          () {
+                            // Navigate to history
+                          },
+                        ),
+                        _buildSubjectCard(
+                          "Geography",
+                          Icons.public,
+                          "World geography and maps",
+                          () {
+                            // Navigate to geography
+                          },
+                        ),
+                        _buildSubjectCard(
+                          "Science",
+                          Icons.science,
+                          "Scientific concepts and discoveries",
+                          () {
+                            // Navigate to science
+                          },
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ),
+
+            // Current Affairs Section
+            Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      const Text(
+                        "Latest Current Affairs",
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      TextButton(
+                        onPressed: () {
+                          // Navigate to all current affairs
+                        },
+                        child: Text(
+                          "View All",
+                          style: TextStyle(
+                            color: Pallete.gradient1,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 16),
+                  _buildCurrentAffairsCard(
+                    "Latest International News",
+                    "Stay updated with global events and developments",
+                    "2 hours ago",
+                  ),
+                  const SizedBox(height: 12),
+                  _buildCurrentAffairsCard(
+                    "Sports Updates",
+                    "Recent sports events and achievements",
+                    "5 hours ago",
+                  ),
+                ],
+              ),
+            ),
+
+            // Featured Quizzes Section
+            Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const Text(
+                    "Featured Quizzes",
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  const SizedBox(height: 16),
+                  GradiantButton(
+                    buttonText: "Start Daily Challenge",
+                    buttonWidth: double.infinity,
+                    onTap: () {
+                      // Navigate to daily challenge
+                    },
+                  ),
+                  const SizedBox(height: 16),
+                  Row(
+                    children: [
+                      Expanded(
+                        child: _buildQuizButton(
+                          "Practice\nQuiz",
+                          Icons.edit_note,
+                          () {
+                            // Navigate to practice quiz
+                          },
+                        ),
+                      ),
+                      const SizedBox(width: 16),
+                      Expanded(
+                        child: _buildQuizButton(
+                          "Mock\nTest",
+                          Icons.timer,
+                          () {
+                            // Navigate to mock test
+                          },
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildQuickActionButton(
+      String label, IconData icon, VoidCallback onPressed) {
+    return Column(
+      children: [
+        Container(
+          width: 60,
+          height: 60,
+          decoration: BoxDecoration(
+            color: Pallete.blueColor,
+            borderRadius: BorderRadius.circular(15),
+          ),
+          child: IconButton(
+            icon: Icon(icon, color: Colors.white),
+            onPressed: onPressed,
+          ),
+        ),
+        const SizedBox(height: 8),
+        Text(
+          label,
+          style: const TextStyle(
+            color: Colors.white,
+            fontSize: 12,
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildSubjectCard(
+      String title, IconData icon, String description, VoidCallback onTap) {
+    return Container(
+      width: 160,
+      margin: const EdgeInsets.only(right: 16),
+      decoration: BoxDecoration(
+        color: Pallete.blueColor,
+        borderRadius: BorderRadius.circular(15),
+      ),
+      child: Material(
+        color: Colors.transparent,
+        child: InkWell(
+          onTap: onTap,
+          borderRadius: BorderRadius.circular(15),
+          child: Padding(
+            padding: const EdgeInsets.all(16),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Icon(icon, color: Colors.white, size: 32),
+                const SizedBox(height: 16),
+                Text(
+                  title,
+                  style: const TextStyle(
+                    color: Colors.white,
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                const SizedBox(height: 8),
+                Text(
+                  description,
+                  style: const TextStyle(
+                    color: Colors.white70,
+                    fontSize: 12,
+                  ),
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildCurrentAffairsCard(
+      String title, String description, String time) {
+    return Container(
+      width: double.infinity,
+      padding: const EdgeInsets.all(16),
+      decoration: BoxDecoration(
+        color: Pallete.blueColor,
+        borderRadius: BorderRadius.circular(15),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            title,
+            style: const TextStyle(
+              color: Colors.white,
+              fontSize: 16,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          const SizedBox(height: 8),
+          Text(
+            description,
+            style: const TextStyle(
+              color: Colors.white70,
+              fontSize: 14,
+            ),
+          ),
+          const SizedBox(height: 8),
+          Text(
+            time,
+            style: TextStyle(
+              color: Pallete.gradient1,
+              fontSize: 12,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildQuizButton(String label, IconData icon, VoidCallback onPressed) {
+    return Container(
+      height: 100,
+      decoration: BoxDecoration(
+        color: Pallete.blueColor,
+        borderRadius: BorderRadius.circular(15),
+      ),
+      child: Material(
+        color: Colors.transparent,
+        child: InkWell(
+          onTap: onPressed,
+          borderRadius: BorderRadius.circular(15),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Icon(icon, color: Colors.white, size: 32),
+              const SizedBox(height: 8),
+              Text(
+                label,
+                style: const TextStyle(
+                  color: Colors.white,
+                  fontSize: 14,
+                  fontWeight: FontWeight.bold,
+                ),
+                textAlign: TextAlign.center,
+              ),
             ],
           ),
         ),
       ),
     );
   }
-}
-
-AppBar _appBar(BuildContext context) {
-  return AppBar(
-    backgroundColor: Pallete.blueDarkColor,
-    title: const Text(
-      'User Name',
-      style: TextStyle(color: Colors.white),
-    ),
-    leading: Builder(builder: (context) {
-      return IconButton(
-          onPressed: () {
-            Scaffold.of(context).openDrawer();
-          },
-          icon: const Icon(
-            Icons.menu,
-            size: 30,
-            color: Colors.white,
-          ));
-    }),
-    actions: <Widget>[
-      Padding(
-        padding: const EdgeInsets.only(right: 10.0),
-        child: Container(
-            height: 45,
-            width: 45,
-            decoration: BoxDecoration(
-                color: Colors.white, borderRadius: BorderRadius.circular(20)),
-            child: Image.asset("assets/images/user.png")),
-      )
-    ],
-  );
 }

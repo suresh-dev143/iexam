@@ -60,13 +60,13 @@ class CurrentAffair extends StatelessWidget {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          CustomBox.cutomBox('Today', Icons.today, () {
+                          CustomBox.customBox('Today', Icons.today, () {
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
                                     builder: (context) => LearningCA()));
                           }),
-                          CustomBox.cutomBox(
+                          CustomBox.customBox(
                               'Weekly', Icons.weekend_outlined, () {})
                         ],
                       ),
@@ -76,8 +76,8 @@ class CurrentAffair extends StatelessWidget {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          CustomBox.cutomBox('Month', Icons.today, () {}),
-                          CustomBox.cutomBox(
+                          CustomBox.customBox('Month', Icons.today, () {}),
+                          CustomBox.customBox(
                               'Last Month', Icons.weekend_outlined, () {})
                         ],
                       ),
@@ -87,8 +87,8 @@ class CurrentAffair extends StatelessWidget {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          CustomBox.cutomBox('Year', Icons.today, () {}),
-                          CustomBox.cutomBox('Last Year', Icons.today, () {})
+                          CustomBox.customBox('Year', Icons.today, () {}),
+                          CustomBox.customBox('Last Year', Icons.today, () {})
                         ],
                       ),
                     ],

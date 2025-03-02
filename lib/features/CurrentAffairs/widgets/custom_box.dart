@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:iexam/core/theme/app_pallete.dart';
 
 class CustomBox {
-  static cutomBox(String text, IconData icon, VoidCallback ontap) {
+  static customBox(String text, IconData icon, VoidCallback ontap) {
     return TextButton(
       onPressed: ontap,
       child: Container(
-        width: 140,
-        height: 120,
+        width: 120,
+        height: 100,
         decoration: BoxDecoration(
           color: Pallete.currentAffraisBox,
           borderRadius: BorderRadius.circular(15),
@@ -36,13 +36,13 @@ class CustomBox {
               Icon(
                 icon,
                 color: Colors.white,
-                size: 50,
+                size: 35,
               ),
               Text(
                 text,
                 style: const TextStyle(
                     color: Colors.white,
-                    fontSize: 21,
+                    fontSize: 15,
                     fontWeight: FontWeight.bold),
               )
             ],

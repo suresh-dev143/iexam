@@ -88,7 +88,7 @@ class QuizPage extends StatelessWidget {
                               Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                      builder: (context) => const CATest()));
+                                      builder: (context) => CATest()));
                             },
                             child: Column(
                               children: [
