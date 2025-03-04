@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:iexam/core/theme/app_pallete.dart';
+import 'package:iexam/features/CurrentAffairs/pages/currentaffrairshome.dart';
 import 'package:iexam/features/auth/view/widgets/gradiant_btn.dart';
 import 'package:iexam/features/home/view/pages/sidebar.dart';
 
@@ -39,6 +40,17 @@ class _HomePageState extends State<HomePage> {
       backgroundColor: Pallete.blueDarkColor,
       appBar: AppBar(
         backgroundColor: Pallete.blueDarkColor,
+        leading: Builder(builder: (context) {
+          return IconButton(
+              onPressed: () {
+                Scaffold.of(context).openDrawer();
+              },
+              icon: const Icon(
+                Icons.menu,
+                size: 30,
+                color: Colors.white,
+              ));
+        }),
         title: const Text(
           "i-Exam",
           style: TextStyle(color: Colors.white),
@@ -202,7 +214,13 @@ class _HomePageState extends State<HomePage> {
                         "Current Affairs",
                         Icons.newspaper,
                         () {
-                          // Navigate to current affairs
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) =>
+                                  const CurrentAffairsHomePage(),
+                            ),
+                          );
                         },
                       ),
                       _buildQuickActionButton(

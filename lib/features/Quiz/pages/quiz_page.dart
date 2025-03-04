@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:iexam/core/theme/app_pallete.dart';
 import 'package:iexam/features/Quiz/pages/caquiz/catest.dart';
-import 'package:iexam/features/Quiz/pages/gkquiz/gkquizsubject.dart';
+import 'package:iexam/features/Quiz/pages/gkquiz/quizsubjects.dart';
 
 class QuizPage extends StatelessWidget {
   const QuizPage({super.key});

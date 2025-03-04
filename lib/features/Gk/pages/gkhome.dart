@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:iexam/core/theme/app_pallete.dart';
+import 'package:iexam/features/Gk/pages/learningpage.dart';
 import 'package:iexam/features/auth/view/widgets/gradiant_btn.dart';
 
 class GkHome extends StatelessWidget {
@@ -276,7 +277,8 @@ class GkHome extends StatelessWidget {
               buttonWidth: double.infinity,
               onTap: () {
                 // Navigate to subject content
-                Navigator.pop(context);
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => LearningPage()));
               },
             ),
           ],

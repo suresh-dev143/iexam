@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:iexam/core/theme/app_pallete.dart';
 import 'package:iexam/features/CurrentAffairs/pages/currentaffair.dart';
+import 'package:iexam/features/CurrentAffairs/pages/currentaffrairshome.dart';
 import 'package:iexam/features/Gk/pages/gkhome.dart';
 import 'package:iexam/features/Quiz/pages/quiz_page.dart';
+import 'package:iexam/features/Quiz/quizhome.dart';
 import 'package:iexam/features/home/view/pages/home_page.dart';
 
 class BottomNav extends StatefulWidget {
@@ -17,8 +19,8 @@ class _BottomNavState extends State<BottomNav> {
   List<Widget> pages = [
     const HomePage(),
     GkHome(),
-    const CurrentAffair(),
-    const QuizPage(),
+    const CurrentAffairsHomePage(),
+    const QuizHomePage(),
   ];
   @override
   Widget build(BuildContext context) {

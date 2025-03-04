@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:iexam/core/theme/app_pallete.dart';
+import 'package:iexam/features/Quiz/pages/caquiz/ca_test_home.dart';
 import 'package:iexam/features/auth/view/widgets/gradiant_btn.dart';
 
 class CATest extends StatelessWidget {
@@ -45,7 +46,6 @@ class CATest extends StatelessWidget {
       "score": null,
     },
   ];
-
   CATest({super.key});
 
   @override
@@ -120,8 +120,9 @@ class CATest extends StatelessWidget {
         child: InkWell(
           borderRadius: BorderRadius.circular(15),
           onTap: () {
-            // Navigate to quiz detail page
             _showQuizDetails(context, quiz);
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context) => const CaTestHome()));
           },
           child: Padding(
             padding: const EdgeInsets.all(16),
