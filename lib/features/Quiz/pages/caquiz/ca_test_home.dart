@@ -40,7 +40,7 @@ class CaTestHome extends StatelessWidget {
             child: Opacity(
               opacity: 0.05,
               child: Image.asset(
-                'assets/images/pattern.png',
+                'assets/images/computer.png',
                 width: 200,
                 // Replace with your actual pattern image or use a Container with decoration
               ),

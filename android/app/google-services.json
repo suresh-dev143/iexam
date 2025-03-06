@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "903987622018",
+    "project_id": "iexam-49958",
+    "storage_bucket": "iexam-49958.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:903987622018:android:603f525eaefddc5580049b",
+        "android_client_info": {
+          "package_name": "com.example.iexam"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCozkFSzh6f-W24CfYNwRd1f3t3Nz6-h5g"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

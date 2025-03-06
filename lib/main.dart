@@ -1,7 +1,15 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:iexam/features/home/view/pages/bottom_nav.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  try {
+    await Firebase.initializeApp();
+    print("Firebase Initialized Successfully!");
+  } catch (e) {
+    print("Firebase Initialization Failed: $e");
+  }
   runApp(const MyApp());
 }
 
