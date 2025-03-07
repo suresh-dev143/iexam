@@ -6,6 +6,7 @@ import 'package:iexam/core/theme/theme.dart';
 import 'package:iexam/features/auth/view/pages/login_page.dart';
 import 'package:iexam/features/auth/view/widgets/gradiant_btn.dart';
 import 'package:iexam/features/auth/view/widgets/text_btn.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class SignupPage extends StatelessWidget {
   const SignupPage({super.key});
@@ -14,16 +15,23 @@ class SignupPage extends StatelessWidget {
     return MaterialApp(
       theme: AppTheme.darkThemeMode,
       debugShowCheckedModeBanner: false,
-      home: const _Signup(),
+      home: _Signup(),
     );
   }
 }
 
-class _Signup extends StatelessWidget {
-  const _Signup();
+class _Signup extends StatefulWidget {
+  _Signup();
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+  @override
+  State<_Signup> createState() => _SignupState();
+}
+
+class _SignupState extends State<_Signup> {
   @override
   Widget build(BuildContext context) {
     var he = MediaQuery.of(context).size.height;
+
     TextEditingController emailcontroler = TextEditingController();
     TextEditingController passcontroler = TextEditingController();
     TextEditingController namecontroler = TextEditingController();
