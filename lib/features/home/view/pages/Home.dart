@@ -12,7 +12,7 @@ class HomePage extends StatelessWidget {
     return Scaffold(
       backgroundColor: Pallete.blueDarkColor,
       appBar: _appBar(context),
-      drawer: const Sidebar(),
+      drawer: Sidebar(),
       body: SingleChildScrollView(
         child: Padding(
           padding: EdgeInsets.symmetric(vertical: he * 0.012),

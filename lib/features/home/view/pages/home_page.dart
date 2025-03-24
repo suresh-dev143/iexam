@@ -36,7 +36,7 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      drawer: const Sidebar(),
+      drawer: Sidebar(),
       backgroundColor: Pallete.blueDarkColor,
       appBar: AppBar(
         backgroundColor: Pallete.blueDarkColor,

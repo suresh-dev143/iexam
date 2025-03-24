@@ -1,12 +1,25 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:iexam/core/theme/app_pallete.dart';
+import 'package:iexam/features/auth/view/pages/login_page.dart';
 import 'package:iexam/features/sidecomponents/about.dart';
 import 'package:iexam/features/sidecomponents/privacypolicy.dart';
 import 'package:iexam/features/sidecomponents/profile.dart';
 import 'package:iexam/features/sidecomponents/settings.dart';
 
 class Sidebar extends StatelessWidget {
-  const Sidebar({super.key});
+  Sidebar({super.key});
+  final FirebaseAuth auth = FirebaseAuth.instance;
+  Future<void> logout(BuildContext context) async {
+    await auth.signOut(); // Firebase logout
+
+    // Navigate to the login page and remove all previous routes
+    Navigator.pushAndRemoveUntil(
+      context,
+      MaterialPageRoute(builder: (context) => LoginPage()),
+      (route) => false, // This removes all previous screens from the stack
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -78,7 +91,9 @@ class Sidebar extends StatelessWidget {
                 MaterialPageRoute(builder: (context) => const AboutUsPage()));
           }),
           CustomBtn.iconButton(
-              'Logout', const Icon(Icons.logout, color: Colors.white), () {}),
+              'Logout',
+              const Icon(Icons.logout, color: Colors.white),
+              () => logout(context)),
         ]),
       ),
     );

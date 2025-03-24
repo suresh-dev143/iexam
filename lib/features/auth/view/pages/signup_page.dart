@@ -1,11 +1,16 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:iexam/core/common/widgets/custom_fields.dart';
 import 'package:iexam/core/theme/app_pallete.dart';
 import 'package:iexam/core/theme/theme.dart';
+import 'package:iexam/core/utils/show_snackbar.dart';
 import 'package:iexam/features/auth/view/pages/login_page.dart';
+import 'package:iexam/features/auth/view/pages/wrapper.dart';
 import 'package:iexam/features/auth/view/widgets/gradiant_btn.dart';
 import 'package:iexam/features/auth/view/widgets/text_btn.dart';
+import 'package:iexam/firebase_services/auth_services.dart';
 
 class SignupPage extends StatelessWidget {
   const SignupPage({super.key});
@@ -19,14 +24,40 @@ class SignupPage extends StatelessWidget {
   }
 }
 
-class _Signup extends StatelessWidget {
+class _Signup extends StatefulWidget {
   const _Signup();
+
+  @override
+  State<_Signup> createState() => _SignupState();
+}
+
+class _SignupState extends State<_Signup> {
+  final FirebaseAuthService auth = FirebaseAuthService();
+  TextEditingController emailcontroler = TextEditingController();
+  TextEditingController passcontroler = TextEditingController();
+  TextEditingController namecontroler = TextEditingController();
+
+  bool isLoading = false;
+  signup() async {
+    setState(() => isLoading = true);
+
+    print('triggered');
+    User? user = await auth.signUpWithEmainAndPassword(
+        "hello123@gmail.com", "hello@123");
+
+    setState(() => isLoading = false);
+    if (user != null) {
+      showToast(message: 'User is successfully created');
+      Get.offAll(() => Wrapper());
+    } else {
+      showToast(message: 'Something went wrong');
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     var he = MediaQuery.of(context).size.height;
-    TextEditingController emailcontroler = TextEditingController();
-    TextEditingController passcontroler = TextEditingController();
-    TextEditingController namecontroler = TextEditingController();
+
     return Scaffold(
       body: SingleChildScrollView(
         child: Column(
@@ -117,10 +148,12 @@ class _Signup extends StatelessWidget {
                             SizedBox(
                               height: he * 0.06,
                             ),
-                            GradiantButton(
-                                buttonText: 'LOG IN',
-                                buttonWidth: double.infinity,
-                                onTap: () {}),
+                            isLoading
+                                ? CircularProgressIndicator()
+                                : GradiantButton(
+                                    buttonText: 'Sign Up',
+                                    buttonWidth: double.infinity,
+                                    onTap: () => signup()),
                             Padding(
                               padding: EdgeInsets.only(
                                   left: he * 0.015, top: he * 0.03),

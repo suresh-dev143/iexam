@@ -1,8 +1,10 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:iexam/core/theme/app_pallete.dart';
 import 'package:iexam/core/theme/theme.dart';
 import 'package:iexam/core/common/widgets/custom_fields.dart';
+import 'package:iexam/features/auth/view/pages/forgotpassword.dart';
 import 'package:iexam/features/auth/view/pages/signup_page.dart';
 import 'package:iexam/features/auth/view/widgets/gradiant_btn.dart';
 import 'package:iexam/features/auth/view/widgets/text_btn.dart';
@@ -21,13 +23,48 @@ class LoginPage extends StatelessWidget {
   }
 }
 
-class _Login extends StatelessWidget {
+class _Login extends StatefulWidget {
   const _Login();
+  @override
+  State<_Login> createState() => _LoginState();
+}
+
+class _LoginState extends State<_Login> {
+  final FirebaseAuth auth = FirebaseAuth.instance;
+  TextEditingController emailcontroler = TextEditingController();
+  TextEditingController passcontroler = TextEditingController();
+  bool _isLoading = false;
+  String? _errorMessage;
+  Future<void> login() async {
+    setState(() {
+      _isLoading = true;
+      _errorMessage = null;
+    });
+    try {
+      print('login chalaa');
+      await auth.signInWithEmailAndPassword(
+        email: 'hello@gmail.com',
+        password: 'hello@123',
+      );
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => HomePage()),
+      );
+    } on FirebaseAuthException catch (e) {
+      setState(() {
+        _errorMessage = e.message;
+      });
+    } finally {
+      setState(() {
+        _isLoading = false;
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     var he = MediaQuery.of(context).size.height;
-    TextEditingController emailcontroler = TextEditingController();
-    TextEditingController passcontroler = TextEditingController();
+
     return Scaffold(
       body: SingleChildScrollView(
         child: Column(
@@ -114,22 +151,31 @@ class _Login extends StatelessWidget {
                   SizedBox(
                     height: he * 0.01,
                   ),
-                  GradiantButton(
-                      buttonText: 'LOG IN',
-                      buttonWidth: double.infinity,
-                      onTap: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => const HomePage()));
-                      }),
+                  if (_errorMessage != null)
+                    Text(
+                      _errorMessage!,
+                      style: TextStyle(color: Colors.red),
+                    ),
+                  SizedBox(height: 10),
+                  _isLoading
+                      ? CircularProgressIndicator()
+                      : GradiantButton(
+                          buttonText: 'LOG IN',
+                          buttonWidth: double.infinity,
+                          onTap: () => login()),
                   SizedBox(
                     height: he * 0.01,
                   ),
                   TextBtn(
                     btnText: 'Forgot Password?',
                     btnColor: Colors.white,
-                    onTap: () {},
+                    onTap: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) =>
+                                  const ForgotPasswordPage()));
+                    },
                     textDecoration: TextDecoration.underline,
                   ),
                   Padding(
