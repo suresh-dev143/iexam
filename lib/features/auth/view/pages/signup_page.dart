@@ -19,7 +19,7 @@ class SignupPage extends StatelessWidget {
     return MaterialApp(
       theme: AppTheme.darkThemeMode,
       debugShowCheckedModeBanner: false,
-      home: const _Signup(),
+      home: _Signup(),
     );
   }
 }

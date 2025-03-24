@@ -6,6 +6,7 @@ import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:iexam/features/auth/view/pages/signup_page.dart';
 import 'package:iexam/features/auth/view/pages/wrapper.dart';
 import 'package:iexam/features/home/view/pages/bottom_nav.dart';
+import 'package:iexam/features/splash/splash_page.dart';
 
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:intl/intl.dart';
