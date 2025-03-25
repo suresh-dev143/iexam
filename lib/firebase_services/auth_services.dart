@@ -5,11 +5,9 @@ class FirebaseAuthService {
   FirebaseAuth auth = FirebaseAuth.instance;
   Future<User?> signUpWithEmainAndPassword(
       String email, String password) async {
-    print('chal gya');
     try {
       UserCredential credential = await auth.createUserWithEmailAndPassword(
           email: email, password: password);
-      print('user details ${credential.user}');
       return credential.user;
     } on FirebaseAuthException catch (error) {
       if (error.code == 'email-already-in-use') {

@@ -10,6 +10,7 @@ import 'package:iexam/features/auth/view/pages/login_page.dart';
 import 'package:iexam/features/auth/view/pages/wrapper.dart';
 import 'package:iexam/features/auth/view/widgets/gradiant_btn.dart';
 import 'package:iexam/features/auth/view/widgets/text_btn.dart';
+import 'package:iexam/features/home/view/pages/bottom_nav.dart';
 import 'package:iexam/firebase_services/auth_services.dart';
 
 class SignupPage extends StatelessWidget {
@@ -36,19 +37,15 @@ class _SignupState extends State<_Signup> {
   TextEditingController emailcontroler = TextEditingController();
   TextEditingController passcontroler = TextEditingController();
   TextEditingController namecontroler = TextEditingController();
-
   bool isLoading = false;
   signup() async {
     setState(() => isLoading = true);
-
-    print('triggered');
     User? user = await auth.signUpWithEmainAndPassword(
-        "hello123@gmail.com", "hello@123");
-
+        emailcontroler.text, passcontroler.text);
     setState(() => isLoading = false);
     if (user != null) {
-      showToast(message: 'User is successfully created');
-      Get.offAll(() => Wrapper());
+      successToast(message: 'Account successfully created');
+      Get.offAll(() => BottomNav());
     } else {
       showToast(message: 'Something went wrong');
     }
@@ -148,12 +145,15 @@ class _SignupState extends State<_Signup> {
                             SizedBox(
                               height: he * 0.06,
                             ),
-                            isLoading
-                                ? CircularProgressIndicator()
-                                : GradiantButton(
-                                    buttonText: 'Sign Up',
-                                    buttonWidth: double.infinity,
-                                    onTap: () => signup()),
+                            Align(
+                              alignment: Alignment.center,
+                              child: isLoading
+                                  ? CircularProgressIndicator()
+                                  : GradiantButton(
+                                      buttonText: 'Sign Up',
+                                      buttonWidth: double.infinity,
+                                      onTap: () => signup()),
+                            ),
                             Padding(
                               padding: EdgeInsets.only(
                                   left: he * 0.015, top: he * 0.03),

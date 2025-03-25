@@ -6,6 +6,7 @@ class Pallete {
   static Color titleTextColor = const Color.fromRGBO(196, 81, 201, 1);
   static Color textColor = const Color.fromRGBO(255, 27, 179, 1);
   static Color textFieldColor = const Color.fromRGBO(48, 43, 67, 1);
+  static Color profileTextFieldColor = Colors.white;
   static Color inactiveBottomBarItemColor = const Color(0xffababab);
   static Color blackColor = const Color.fromRGBO(10, 3, 34, 1);
   static Color blueDarkColor = const Color.fromRGBO(25, 38, 82, 1);

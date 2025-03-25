@@ -68,19 +68,8 @@ class _SettingsPageState extends State<SettingsPage> {
                 child: Column(
                   children: [
                     _buildSwitchTile(
-                      'Email Notifications',
-                      'Receive notifications via email',
-                      emailNotifications,
-                      (value) {
-                        setState(() {
-                          emailNotifications = value;
-                        });
-                      },
-                    ),
-                    const Divider(color: Colors.white24),
-                    _buildSwitchTile(
-                      'Push Notifications',
-                      'Receive push notifications on your device',
+                      'Notifications',
+                      'Receive notifications on your device',
                       pushNotifications,
                       (value) {
                         setState(() {
@@ -106,7 +95,7 @@ class _SettingsPageState extends State<SettingsPage> {
                   children: [
                     _buildSwitchTile(
                       'Dark Mode',
-                      'Enable dark theme for the app',
+                      'Enable dark theme for reading',
                       darkMode,
                       (value) {
                         setState(() {
@@ -237,8 +226,8 @@ class _SettingsPageState extends State<SettingsPage> {
       trailing: Switch(
         value: value,
         onChanged: onChanged,
-        activeColor: Pallete.textColor,
-        activeTrackColor: Pallete.gradient1.withOpacity(0.5),
+        activeColor: Pallete.gradient1,
+        activeTrackColor: Pallete.gradient2.withOpacity(0.5),
       ),
       contentPadding: EdgeInsets.zero,
     );

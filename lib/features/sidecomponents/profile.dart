@@ -1,9 +1,11 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:iexam/core/theme/app_pallete.dart';
-import 'package:iexam/core/common/widgets/custom_fields.dart';
 import 'package:iexam/features/auth/view/widgets/gradiant_btn.dart';
 import 'dart:io';
+
+import 'package:iexam/features/sidecomponents/profile/view/widgets/profilefields.dart';
 
 class EditProfilePage extends StatefulWidget {
   const EditProfilePage({super.key});
@@ -12,27 +14,61 @@ class EditProfilePage extends StatefulWidget {
 }
 
 class _EditProfilePageState extends State<EditProfilePage> {
-  // Text controllers for form fields
+  final user = FirebaseAuth.instance.currentUser;
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _phoneController = TextEditingController();
   final TextEditingController _bioController = TextEditingController();
-  final TextEditingController _locationController = TextEditingController();
   // For profile image
   File? _profileImage;
   bool _isUploading = false;
+  final _formKey = GlobalKey<FormState>();
+  bool _isEditing = false;
 
-  // Gender selection
-  String _selectedGender = 'Male';
-  final List<String> _genderOptions = [
-    'Male',
-    'Female',
-    'Other',
-    'Prefer not to say'
+  // State selection
+  String _selectedState = 'Select your state';
+  final List<String> indianStates = [
+    "Select your state",
+    "Andhra Pradesh",
+    "Arunachal Pradesh",
+    "Assam",
+    "Bihar",
+    "Chhattisgarh",
+    "Goa",
+    "Gujarat",
+    "Haryana",
+    "Himachal Pradesh",
+    "Jharkhand",
+    "Karnataka",
+    "Kerala",
+    "Madhya Pradesh",
+    "Maharashtra",
+    "Manipur",
+    "Meghalaya",
+    "Mizoram",
+    "Nagaland",
+    "Odisha",
+    "Punjab",
+    "Rajasthan",
+    "Sikkim",
+    "Tamil Nadu",
+    "Telangana",
+    "Tripura",
+    "Uttar Pradesh",
+    "Uttarakhand",
+    "West Bengal",
+    "Andaman & Nicobar",
+    "Chandigarh",
+    "Dadra & Nagar Haveli and Daman & Diu",
+    "Lakshadweep",
+    "Delhi",
+    "Puducherry",
+    "Ladakh",
+    "Jammu & Kashmir"
   ];
 
   // Date of birth
-  DateTime _selectedDate = DateTime(2000, 1, 1);
+  // DateTime _selectedDate = DateTime(2000, 1, 1);
 
   @override
   void initState() {
@@ -43,7 +79,6 @@ class _EditProfilePageState extends State<EditProfilePage> {
     _phoneController.text = "+1 234 567 8900";
     _bioController.text =
         "Flutter developer passionate about creating beautiful UIs";
-    _locationController.text = "New York, USA";
   }
 
   @override
@@ -52,38 +87,40 @@ class _EditProfilePageState extends State<EditProfilePage> {
     _emailController.dispose();
     _phoneController.dispose();
     _bioController.dispose();
-    _locationController.dispose();
     super.dispose();
   }
 
-  // Method to pick date
-  Future<void> _selectDate(BuildContext context) async {
-    final DateTime? picked = await showDatePicker(
-      context: context,
-      initialDate: _selectedDate,
-      firstDate: DateTime(1950),
-      lastDate: DateTime.now(),
-      builder: (context, child) {
-        return Theme(
-          data: Theme.of(context).copyWith(
-            colorScheme: ColorScheme.dark(
-              primary: Pallete.textColor,
-              onPrimary: Colors.white,
-              surface: Pallete.blueColor,
-              onSurface: Colors.white,
-            ),
-            dialogBackgroundColor: Pallete.blueDarkColor,
-          ),
-          child: child!,
-        );
-      },
-    );
+  void _toggleEdit() {
+    setState(() {
+      _isEditing = !_isEditing;
+    });
+  }
 
-    if (picked != null && picked != _selectedDate) {
-      setState(() {
-        _selectedDate = picked;
-      });
+  Future<void> saveChanges() async {
+    print('chal gya re');
+    if (_nameController.text.isEmpty || _emailController.text.isEmpty) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Please fill in all required fields'),
+          backgroundColor: Colors.red,
+        ),
+      );
+      return;
     }
+
+    // Show success message
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(
+        content: Text('Profile updated successfully!'),
+        backgroundColor: Colors.green,
+      ),
+    );
+    setState(() {
+      _isEditing = false;
+    });
+
+    // Navigate back
+    // Navigator.pop(context);
   }
 
   // Method to pick image
@@ -108,6 +145,9 @@ class _EditProfilePageState extends State<EditProfilePage> {
         backgroundColor: Colors.green,
       ),
     );
+    setState(() {
+      _isEditing = false;
+    });
   }
 
   @override
@@ -126,6 +166,15 @@ class _EditProfilePageState extends State<EditProfilePage> {
           icon: const Icon(Icons.arrow_back_ios, color: Colors.white),
           onPressed: () => Navigator.pop(context),
         ),
+        actions: [
+          IconButton(
+            icon: Icon(
+              _isEditing ? Icons.save : Icons.edit,
+              color: Colors.white,
+            ),
+            onPressed: _isEditing ? saveChanges : _toggleEdit,
+          ),
+        ],
       ),
       body: SingleChildScrollView(
         child: Padding(
@@ -209,136 +258,109 @@ class _EditProfilePageState extends State<EditProfilePage> {
                   color: Pallete.blueColor,
                   borderRadius: BorderRadius.circular(15),
                 ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    // Full Name Field
-                    const Text(
-                      'Full Name',
-                      style: TextStyle(color: Colors.white70, fontSize: 14),
-                    ),
-                    const SizedBox(height: 8),
-                    SizedBox(
-                      height: 60,
-                      child: CustomFields(
-                        fillColor: Pallete.textFieldColor,
-                        controller: _nameController,
-                        hintText: 'Enter your full name',
-                        icon: const Icon(CupertinoIcons.person_fill),
-                        textinputtype: TextInputType.name,
+                child: Form(
+                  key: _formKey,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      // Full Name Field
+                      const Text(
+                        'Full Name',
+                        style: TextStyle(color: Colors.white70, fontSize: 14),
                       ),
-                    ),
-                    const SizedBox(height: 20),
-
-                    // Email Field
-                    const Text(
-                      'Email Address',
-                      style: TextStyle(color: Colors.white70, fontSize: 14),
-                    ),
-                    const SizedBox(height: 8),
-                    SizedBox(
-                      height: 60,
-                      child: CustomFields(
-                        fillColor: Pallete.textFieldColor,
-                        controller: _emailController,
-                        hintText: 'Enter your email address',
-                        icon: const Icon(CupertinoIcons.mail_solid),
-                        textinputtype: TextInputType.emailAddress,
-                      ),
-                    ),
-                    const SizedBox(height: 20),
-
-                    // Phone Number Field
-                    const Text(
-                      'Phone Number',
-                      style: TextStyle(color: Colors.white70, fontSize: 14),
-                    ),
-                    const SizedBox(height: 8),
-                    SizedBox(
-                      height: 60,
-                      child: CustomFields(
-                        fillColor: Pallete.textFieldColor,
-                        controller: _phoneController,
-                        hintText: 'Enter your phone number',
-                        icon: const Icon(CupertinoIcons.phone_fill),
-                        textinputtype: TextInputType.phone,
-                      ),
-                    ),
-                    const SizedBox(height: 20),
-
-                    // Gender Selection
-                    const Text(
-                      'Gender',
-                      style: TextStyle(color: Colors.white70, fontSize: 14),
-                    ),
-                    const SizedBox(height: 8),
-                    Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 15),
-                      decoration: BoxDecoration(
-                        color: Pallete.textFieldColor,
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                      child: DropdownButtonHideUnderline(
-                        child: DropdownButton<String>(
-                          value: _selectedGender,
-                          isExpanded: true,
-                          dropdownColor: Pallete.blueDarkColor,
-                          icon: const Icon(Icons.arrow_drop_down,
-                              color: Colors.white),
-                          items: _genderOptions.map((String gender) {
-                            return DropdownMenuItem<String>(
-                              value: gender,
-                              child: Text(
-                                gender,
-                                style: const TextStyle(color: Colors.white),
-                              ),
-                            );
-                          }).toList(),
-                          onChanged: (String? newValue) {
-                            if (newValue != null) {
-                              setState(() {
-                                _selectedGender = newValue;
-                              });
-                            }
-                          },
+                      const SizedBox(height: 8),
+                      SizedBox(
+                        height: 60,
+                        child: ProfilleFields(
+                          isEditing: _isEditing,
+                          fillColor: Pallete.profileTextFieldColor,
+                          controller: _nameController,
+                          hintText: 'Enter your full name',
+                          icon: const Icon(CupertinoIcons.person_fill),
+                          textinputtype: TextInputType.name,
                         ),
                       ),
-                    ),
-                    const SizedBox(height: 20),
+                      const SizedBox(height: 20),
 
-                    // Date of Birth
-                    const Text(
-                      'Date of Birth',
-                      style: TextStyle(color: Colors.white70, fontSize: 14),
-                    ),
-                    const SizedBox(height: 8),
-                    GestureDetector(
-                      onTap: () => _selectDate(context),
-                      child: Container(
+                      // Email Field
+                      const Text(
+                        'Email Address',
+                        style: TextStyle(color: Colors.white70, fontSize: 14),
+                      ),
+                      const SizedBox(height: 8),
+                      SizedBox(
                         height: 60,
+                        child: ProfilleFields(
+                          isEditing: _isEditing,
+                          fillColor: Pallete.profileTextFieldColor,
+                          controller: _emailController,
+                          hintText: 'Enter your email address',
+                          icon: const Icon(CupertinoIcons.mail_solid),
+                          textinputtype: TextInputType.emailAddress,
+                        ),
+                      ),
+                      const SizedBox(height: 20),
+
+                      // Phone Number Field
+                      const Text(
+                        'Phone Number',
+                        style: TextStyle(color: Colors.white70, fontSize: 14),
+                      ),
+                      const SizedBox(height: 8),
+                      SizedBox(
+                        height: 60,
+                        child: ProfilleFields(
+                          isEditing: _isEditing,
+                          fillColor: Pallete.profileTextFieldColor,
+                          controller: _phoneController,
+                          hintText: 'Enter your phone number',
+                          icon: const Icon(CupertinoIcons.phone_fill),
+                          textinputtype: TextInputType.phone,
+                        ),
+                      ),
+                      const SizedBox(height: 20),
+
+                      // State Selection
+                      const Text(
+                        'State',
+                        style: TextStyle(color: Colors.white70, fontSize: 14),
+                      ),
+                      const SizedBox(height: 8),
+                      Container(
                         padding: const EdgeInsets.symmetric(horizontal: 15),
                         decoration: BoxDecoration(
-                          color: Pallete.textFieldColor,
+                          color: Pallete.blueLightColor,
                           borderRadius: BorderRadius.circular(10),
                         ),
-                        child: Row(
-                          children: [
-                            const Icon(Icons.calendar_today,
+                        child: DropdownButtonHideUnderline(
+                          child: DropdownButton<String>(
+                            value: _selectedState,
+                            isExpanded: true,
+                            dropdownColor: Pallete.blueLightColor,
+                            icon: const Icon(Icons.arrow_drop_down,
                                 color: Colors.white),
-                            const SizedBox(width: 15),
-                            Text(
-                              '${_selectedDate.day}/${_selectedDate.month}/${_selectedDate.year}',
-                              style: const TextStyle(
-                                  color: Colors.white, fontSize: 16),
-                            ),
-                            const Spacer(),
-                            const Icon(Icons.arrow_drop_down,
-                                color: Colors.white),
-                          ],
+                            items: indianStates.map((String gender) {
+                              return DropdownMenuItem<String>(
+                                value: gender,
+                                child: Text(
+                                  gender,
+                                  style: const TextStyle(color: Colors.white),
+                                ),
+                              );
+                            }).toList(),
+                            onChanged: (String? newValue) {
+                              if (newValue != null) {
+                                setState(() {
+                                  _selectedState = newValue;
+                                });
+                              }
+                            },
+                          ),
                         ),
                       ),
-                    ),
-                  ],
+                      const SizedBox(height: 20),
+                    ],
+                  ),
                 ),
               ),
 
@@ -364,38 +386,21 @@ class _EditProfilePageState extends State<EditProfilePage> {
                     Container(
                       padding: const EdgeInsets.symmetric(horizontal: 15),
                       decoration: BoxDecoration(
-                        color: Pallete.textFieldColor,
+                        color: Pallete.profileTextFieldColor,
                         borderRadius: BorderRadius.circular(10),
                       ),
                       child: TextField(
                         controller: _bioController,
-                        style: const TextStyle(color: Colors.white),
+                        style: const TextStyle(color: Colors.black87),
                         maxLines: 4,
                         decoration: const InputDecoration(
                           hintText: 'Tell us about yourself',
-                          hintStyle: TextStyle(color: Colors.white54),
+                          hintStyle: TextStyle(color: Colors.black12),
                           border: InputBorder.none,
                         ),
                       ),
                     ),
                     const SizedBox(height: 20),
-
-                    // Location Field
-                    const Text(
-                      'Address',
-                      style: TextStyle(color: Colors.white70, fontSize: 14),
-                    ),
-                    const SizedBox(height: 8),
-                    SizedBox(
-                      height: 60,
-                      child: CustomFields(
-                        fillColor: Pallete.textFieldColor,
-                        controller: _locationController,
-                        hintText: 'City, Country',
-                        icon: const Icon(Icons.location_on),
-                        textinputtype: TextInputType.text,
-                      ),
-                    ),
                   ],
                 ),
               ),
@@ -406,30 +411,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
               GradiantButton(
                 buttonText: 'SAVE PROFILE',
                 buttonWidth: double.infinity,
-                onTap: () {
-                  // Validate and save profile data
-                  if (_nameController.text.isEmpty ||
-                      _emailController.text.isEmpty) {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(
-                        content: Text('Please fill in all required fields'),
-                        backgroundColor: Colors.red,
-                      ),
-                    );
-                    return;
-                  }
-
-                  // Show success message
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(
-                      content: Text('Profile updated successfully!'),
-                      backgroundColor: Colors.green,
-                    ),
-                  );
-
-                  // Navigate back
-                  Navigator.pop(context);
-                },
+                onTap: () => saveChanges(),
               ),
 
               const SizedBox(height: 15),

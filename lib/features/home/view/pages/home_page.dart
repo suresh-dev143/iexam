@@ -62,12 +62,6 @@ class _HomePageState extends State<HomePage> {
               // Handle notifications
             },
           ),
-          IconButton(
-            icon: const Icon(Icons.person_outline, color: Colors.white),
-            onPressed: () {
-              // Handle profile
-            },
-          ),
         ],
       ),
       body: SingleChildScrollView(

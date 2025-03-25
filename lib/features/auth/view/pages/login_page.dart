@@ -1,15 +1,19 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:get/get.dart';
 import 'package:iexam/core/theme/app_pallete.dart';
 import 'package:iexam/core/theme/theme.dart';
 import 'package:iexam/core/common/widgets/custom_fields.dart';
+import 'package:iexam/core/utils/show_snackbar.dart';
 import 'package:iexam/features/auth/view/pages/forgotpassword.dart';
 import 'package:iexam/features/auth/view/pages/signup_page.dart';
 import 'package:iexam/features/auth/view/widgets/gradiant_btn.dart';
 import 'package:iexam/features/auth/view/widgets/text_btn.dart';
+import 'package:iexam/features/home/view/pages/bottom_nav.dart';
 import 'package:iexam/features/home/view/pages/home_page.dart';
 import 'package:iexam/features/splash/splash_page.dart';
+import 'package:iexam/firebase_services/auth_services.dart';
 
 class LoginPage extends StatelessWidget {
   const LoginPage({super.key});
@@ -30,34 +34,21 @@ class _Login extends StatefulWidget {
 }
 
 class _LoginState extends State<_Login> {
-  final FirebaseAuth auth = FirebaseAuth.instance;
+  final FirebaseAuthService auth = FirebaseAuthService();
   TextEditingController emailcontroler = TextEditingController();
   TextEditingController passcontroler = TextEditingController();
-  bool _isLoading = false;
+  bool isLoading = false;
   String? _errorMessage;
-  Future<void> login() async {
-    setState(() {
-      _isLoading = true;
-      _errorMessage = null;
-    });
-    try {
-      print('login chalaa');
-      await auth.signInWithEmailAndPassword(
-        email: 'hello@gmail.com',
-        password: 'hello@123',
-      );
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(builder: (context) => HomePage()),
-      );
-    } on FirebaseAuthException catch (e) {
-      setState(() {
-        _errorMessage = e.message;
-      });
-    } finally {
-      setState(() {
-        _isLoading = false;
-      });
+  login() async {
+    setState(() => isLoading = true);
+    User? user = await auth.signinWithEmainAndPassword(
+        emailcontroler.text, passcontroler.text);
+    setState(() => isLoading = false);
+    if (user != null) {
+      successToast(message: 'Log in successfully');
+      Get.offAll(() => BottomNav());
+    } else {
+      showToast(message: 'Something went wrong');
     }
   }
 
@@ -157,12 +148,15 @@ class _LoginState extends State<_Login> {
                       style: TextStyle(color: Colors.red),
                     ),
                   SizedBox(height: 10),
-                  _isLoading
-                      ? CircularProgressIndicator()
-                      : GradiantButton(
-                          buttonText: 'LOG IN',
-                          buttonWidth: double.infinity,
-                          onTap: () => login()),
+                  Align(
+                    alignment: Alignment.center,
+                    child: isLoading
+                        ? CircularProgressIndicator()
+                        : GradiantButton(
+                            buttonText: 'LOG IN',
+                            buttonWidth: double.infinity,
+                            onTap: () => login()),
+                  ),
                   SizedBox(
                     height: he * 0.01,
                   ),
