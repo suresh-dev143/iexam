@@ -98,7 +98,7 @@ class CaTestHome extends StatelessWidget {
         Container(
           padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
           decoration: BoxDecoration(
-            color: Colors.white.withOpacity(0.1),
+            color: Colors.white,
             borderRadius: BorderRadius.circular(20),
           ),
           child: const Row(
@@ -134,7 +134,7 @@ class CaTestHome extends StatelessWidget {
             icon: Icons.timer,
             title: "10 min",
             subtitle: "Duration",
-            color: Colors.orangeAccent.withOpacity(0.8),
+            color: Colors.orangeAccent,
           ),
         ),
         const SizedBox(width: 15),
@@ -143,7 +143,7 @@ class CaTestHome extends StatelessWidget {
             icon: Icons.question_answer,
             title: "15",
             subtitle: "Questions",
-            color: Colors.greenAccent.withOpacity(0.8),
+            color: Colors.greenAccent,
           ),
         ),
         const SizedBox(width: 15),
@@ -152,7 +152,7 @@ class CaTestHome extends StatelessWidget {
             icon: Icons.star,
             title: "100",
             subtitle: "Points",
-            color: Colors.purpleAccent.withOpacity(0.8),
+            color: Colors.purpleAccent,
           ),
         ),
       ],
@@ -168,7 +168,7 @@ class CaTestHome extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.symmetric(vertical: 16),
       decoration: BoxDecoration(
-        color: Colors.white.withOpacity(0.1),
+        color: Colors.white,
         borderRadius: BorderRadius.circular(15),
       ),
       child: Column(
@@ -188,7 +188,7 @@ class CaTestHome extends StatelessWidget {
             subtitle,
             style: TextStyle(
               fontSize: 14,
-              color: Colors.white.withOpacity(0.7),
+              color: Colors.white,
             ),
           ),
         ],
@@ -200,7 +200,7 @@ class CaTestHome extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
-        color: Colors.white.withOpacity(0.1),
+        color: Colors.white,
         borderRadius: BorderRadius.circular(15),
       ),
       child: Column(
@@ -257,7 +257,7 @@ class CaTestHome extends StatelessWidget {
         Container(
           padding: const EdgeInsets.all(8),
           decoration: BoxDecoration(
-            color: Colors.white.withOpacity(0.1),
+            color: Colors.white,
             borderRadius: BorderRadius.circular(10),
           ),
           child: Icon(icon, color: Colors.white70, size: 20),
@@ -278,7 +278,7 @@ class CaTestHome extends StatelessWidget {
               label,
               style: TextStyle(
                 fontSize: 12,
-                color: Colors.white.withOpacity(0.7),
+                color: Colors.white,
               ),
             ),
           ],
@@ -320,7 +320,7 @@ class CaTestHome extends StatelessWidget {
             Container(
               padding: const EdgeInsets.all(4),
               decoration: BoxDecoration(
-                color: Colors.white.withOpacity(0.2),
+                color: Colors.white,
                 shape: BoxShape.circle,
               ),
               child: const Icon(

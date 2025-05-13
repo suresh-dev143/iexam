@@ -227,7 +227,7 @@ class _SettingsPageState extends State<SettingsPage> {
         value: value,
         onChanged: onChanged,
         activeColor: Pallete.gradient1,
-        activeTrackColor: Pallete.gradient2.withOpacity(0.5),
+        activeTrackColor: Pallete.gradient2,
       ),
       contentPadding: EdgeInsets.zero,
     );

@@ -120,7 +120,7 @@ class _HomePageState extends State<HomePage> {
                                 end: Alignment.bottomCenter,
                                 colors: [
                                   Colors.transparent,
-                                  Colors.black.withOpacity(0.7),
+                                  Colors.black,
                                 ],
                               ),
                             ),
@@ -173,7 +173,7 @@ class _HomePageState extends State<HomePage> {
                     shape: BoxShape.circle,
                     color: _currentCarouselIndex == entry.key
                         ? Pallete.gradient1
-                        : Colors.white.withOpacity(0.4),
+                        : Colors.white,
                   ),
                 );
               }).toList(),

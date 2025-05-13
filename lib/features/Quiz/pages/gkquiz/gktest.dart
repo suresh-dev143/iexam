@@ -174,7 +174,7 @@ class GKTest extends StatelessWidget {
               Container(
                 padding: const EdgeInsets.all(12),
                 decoration: BoxDecoration(
-                  color: Pallete.blueColor.withOpacity(0.1),
+                  color: Pallete.blueColor,
                   borderRadius: BorderRadius.circular(10),
                 ),
                 child: Icon(

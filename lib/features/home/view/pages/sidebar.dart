@@ -91,9 +91,9 @@ class Sidebar extends StatelessWidget {
                 MaterialPageRoute(builder: (context) => const AboutUsPage()));
           }),
           CustomBtn.iconButton(
-              'Logout',
-              const Icon(Icons.logout, color: Colors.white),
-              () => logout(context)),
+              'Logout', const Icon(Icons.logout, color: Colors.white), () {
+            logout(context);
+          }),
         ]),
       ),
     );

@@ -141,13 +141,13 @@ class _GKQuizSubjectState extends State<GKQuizSubject> {
                         Icon(
                           Icons.search_off,
                           size: 64,
-                          color: Colors.white.withOpacity(0.5),
+                          color: Colors.white,
                         ),
                         const SizedBox(height: 16),
                         Text(
                           "No subjects found",
                           style: TextStyle(
-                            color: Colors.white.withOpacity(0.7),
+                            color: Colors.white,
                             fontSize: 18,
                           ),
                         ),
@@ -221,7 +221,7 @@ class _GKQuizSubjectState extends State<GKQuizSubject> {
           borderRadius: BorderRadius.circular(15),
           boxShadow: [
             BoxShadow(
-              color: Colors.black.withOpacity(0.2),
+              color: Colors.black,
               blurRadius: 8,
               offset: const Offset(0, 2),
             ),
@@ -234,7 +234,7 @@ class _GKQuizSubjectState extends State<GKQuizSubject> {
             Container(
               height: 80,
               decoration: BoxDecoration(
-                color: color.withOpacity(0.2),
+                color: color,
                 borderRadius:
                     const BorderRadius.vertical(top: Radius.circular(15)),
               ),
@@ -281,7 +281,7 @@ class _GKQuizSubjectState extends State<GKQuizSubject> {
                           padding: const EdgeInsets.symmetric(
                               horizontal: 8, vertical: 4),
                           decoration: BoxDecoration(
-                            color: color.withOpacity(0.2),
+                            color: color,
                             borderRadius: BorderRadius.circular(12),
                           ),
                           child: Text(
@@ -389,7 +389,7 @@ class _GKQuizSubjectState extends State<GKQuizSubject> {
                       leading: Container(
                         padding: const EdgeInsets.all(8),
                         decoration: BoxDecoration(
-                          color: subject["color"].withOpacity(0.2),
+                          color: subject["color"],
                           shape: BoxShape.circle,
                         ),
                         child: Icon(

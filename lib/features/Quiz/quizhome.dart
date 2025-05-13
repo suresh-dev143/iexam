@@ -512,7 +512,7 @@ class _QuizHomePageState extends State<QuizHomePage>
                     padding:
                         const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                     decoration: BoxDecoration(
-                      color: Colors.white.withOpacity(0.2),
+                      color: Colors.white,
                       borderRadius: BorderRadius.circular(20),
                     ),
                     child: const Row(
@@ -583,7 +583,7 @@ class _QuizHomePageState extends State<QuizHomePage>
         Container(
           padding: const EdgeInsets.all(12),
           decoration: BoxDecoration(
-            color: Pallete.gradient1.withOpacity(0.2),
+            color: Pallete.gradient1,
             shape: BoxShape.circle,
           ),
           child: Icon(
@@ -647,7 +647,7 @@ class _QuizHomePageState extends State<QuizHomePage>
                     Container(
                       padding: const EdgeInsets.all(12),
                       decoration: BoxDecoration(
-                        color: Pallete.gradient1.withOpacity(0.2),
+                        color: Pallete.gradient1,
                         shape: BoxShape.circle,
                       ),
                       child: Icon(
@@ -661,7 +661,7 @@ class _QuizHomePageState extends State<QuizHomePage>
                       padding: const EdgeInsets.symmetric(
                           horizontal: 8, vertical: 4),
                       decoration: BoxDecoration(
-                        color: Pallete.gradient1.withOpacity(0.2),
+                        color: Pallete.gradient1,
                         borderRadius: BorderRadius.circular(12),
                       ),
                       child: Text(
@@ -720,7 +720,7 @@ class _QuizHomePageState extends State<QuizHomePage>
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
       decoration: BoxDecoration(
-        color: Colors.white.withOpacity(0.1),
+        color: Colors.white,
         borderRadius: BorderRadius.circular(12),
       ),
       child: Row(
@@ -765,7 +765,7 @@ class _QuizHomePageState extends State<QuizHomePage>
               Container(
                 padding: const EdgeInsets.all(10),
                 decoration: BoxDecoration(
-                  color: color.withOpacity(0.2),
+                  color: color,
                   borderRadius: BorderRadius.circular(10),
                 ),
                 child: Icon(

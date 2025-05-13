@@ -123,7 +123,7 @@ class GkHome extends StatelessWidget {
                 Text(
                   "Select a subject to start learning",
                   style: TextStyle(
-                    color: Colors.white.withOpacity(0.7),
+                    color: Colors.white,
                     fontSize: 16,
                   ),
                 ),
@@ -162,7 +162,7 @@ class GkHome extends StatelessWidget {
           borderRadius: BorderRadius.circular(15),
           boxShadow: [
             BoxShadow(
-              color: Colors.black.withOpacity(0.1),
+              color: Colors.black,
               blurRadius: 8,
               offset: const Offset(0, 2),
             ),
@@ -190,7 +190,7 @@ class GkHome extends StatelessWidget {
             Text(
               "${subject["topics"]} Topics",
               style: TextStyle(
-                color: Colors.white.withOpacity(0.7),
+                color: Colors.white,
                 fontSize: 14,
               ),
             ),
@@ -208,7 +208,7 @@ class GkHome extends StatelessWidget {
             Text(
               "${(subject["progress"] * 100).toInt()}% Complete",
               style: TextStyle(
-                color: Colors.white.withOpacity(0.7),
+                color: Colors.white,
                 fontSize: 12,
               ),
             ),

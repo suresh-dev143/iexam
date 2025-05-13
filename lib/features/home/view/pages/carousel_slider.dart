@@ -55,9 +55,8 @@ class _CarouselWithIndicatorState extends State<CarouselWithIndicatorDemo> {
               decoration: BoxDecoration(
                   shape: BoxShape.circle,
                   color: (Theme.of(context).brightness == Brightness.dark
-                          ? Colors.black
-                          : Colors.white)
-                      .withOpacity(_current == entry.key ? 0.9 : 0.4)),
+                      ? Colors.black
+                      : Colors.white)),
             ),
           );
         }).toList(),

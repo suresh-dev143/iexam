@@ -42,7 +42,7 @@ class PrivacyPolicyPage extends StatelessWidget {
                         shape: BoxShape.circle,
                         boxShadow: [
                           BoxShadow(
-                            color: Pallete.gradient1.withOpacity(0.3),
+                            color: Pallete.gradient1,
                             blurRadius: 15,
                             spreadRadius: 2,
                           ),
@@ -70,7 +70,7 @@ class PrivacyPolicyPage extends StatelessWidget {
                       'Last Updated: ${_getFormattedDate()}',
                       style: TextStyle(
                         fontSize: 14,
-                        color: Colors.white.withOpacity(0.7),
+                        color: Colors.white,
                       ),
                     ),
                   ],

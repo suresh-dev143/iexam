@@ -41,7 +41,7 @@ class AboutUsPage extends StatelessWidget {
                         shape: BoxShape.circle,
                         boxShadow: [
                           BoxShadow(
-                            color: Pallete.gradient1.withOpacity(0.5),
+                            color: Pallete.gradient1,
                             blurRadius: 20,
                             spreadRadius: 5,
                           ),
@@ -73,10 +73,7 @@ class AboutUsPage extends StatelessWidget {
                     const SizedBox(height: 5),
                     Text(
                       'Version 1.0.0',
-                      style: TextStyle(
-                        fontSize: 14,
-                        color: Colors.white.withOpacity(0.7),
-                      ),
+                      style: TextStyle(fontSize: 14, color: Colors.white),
                     ),
                   ],
                 ),
@@ -264,7 +261,7 @@ class AboutUsPage extends StatelessWidget {
                     Text(
                       '© ${DateTime.now().year} iExam. All rights reserved.',
                       style: TextStyle(
-                        color: Colors.white.withOpacity(0.7),
+                        color: Colors.white,
                         fontSize: 14,
                       ),
                     ),

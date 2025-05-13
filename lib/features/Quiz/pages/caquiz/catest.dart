@@ -190,7 +190,7 @@ class CATest extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
       decoration: BoxDecoration(
-        color: badgeColor.withOpacity(0.2),
+        color: badgeColor,
         borderRadius: BorderRadius.circular(8),
         border: Border.all(color: badgeColor),
       ),
@@ -222,7 +222,7 @@ class CATest extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
       decoration: BoxDecoration(
-        color: Pallete.gradient1.withOpacity(0.2),
+        color: Pallete.gradient1,
         borderRadius: BorderRadius.circular(8),
         border: Border.all(color: Pallete.gradient1),
       ),

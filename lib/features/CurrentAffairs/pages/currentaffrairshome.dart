@@ -151,7 +151,7 @@ class _CurrentAffairsHomePageState extends State<CurrentAffairsHomePage> {
                         end: Alignment.bottomCenter,
                         colors: [
                           Colors.transparent,
-                          Colors.black.withOpacity(0.7),
+                          Colors.black,
                         ],
                       ),
                     ),
@@ -464,7 +464,7 @@ class _CurrentAffairsHomePageState extends State<CurrentAffairsHomePage> {
             Container(
               padding: const EdgeInsets.all(12),
               decoration: BoxDecoration(
-                color: color.withOpacity(0.2),
+                color: color.withValues(),
                 shape: BoxShape.circle,
               ),
               child: Icon(
@@ -519,7 +519,7 @@ class _CurrentAffairsHomePageState extends State<CurrentAffairsHomePage> {
                 errorBuilder: (context, error, stackTrace) {
                   return Container(
                     height: 180,
-                    color: Pallete.gradient2.withOpacity(0.3),
+                    color: Pallete.gradient2,
                     child: const Center(
                       child: Icon(
                         Icons.image_not_supported,
@@ -542,7 +542,7 @@ class _CurrentAffairsHomePageState extends State<CurrentAffairsHomePage> {
                         padding: const EdgeInsets.symmetric(
                             horizontal: 8, vertical: 4),
                         decoration: BoxDecoration(
-                          color: Pallete.gradient1.withOpacity(0.2),
+                          color: Pallete.gradient1,
                           borderRadius: BorderRadius.circular(4),
                           border: Border.all(color: Pallete.gradient1),
                         ),
@@ -637,7 +637,7 @@ class _CurrentAffairsHomePageState extends State<CurrentAffairsHomePage> {
         Container(
           padding: const EdgeInsets.all(8),
           decoration: BoxDecoration(
-            color: Pallete.gradient1.withOpacity(0.2),
+            color: Pallete.gradient1,
             shape: BoxShape.circle,
           ),
           child: Icon(
