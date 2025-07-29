@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:iexam/core/theme/app_pallete.dart';
 import 'package:iexam/features/auth/view/widgets/gradiant_btn.dart';
 import 'package:iexam/features/CurrentAffairs/pages/learnca.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class CurrentAffairsHomePage extends StatefulWidget {
   const CurrentAffairsHomePage({super.key});
@@ -47,7 +48,7 @@ class _CurrentAffairsHomePageState extends State<CurrentAffairsHomePage> {
   final List<Map<String, dynamic>> latestNews = [
     {
       "title": "Global Summit on Climate Change Concludes with New Agreements",
-      "summary":
+      "description":
           "World leaders reached consensus on reducing carbon emissions by 30% by 2030.",
       "category": "Environment",
       "time": "2 hours ago",
@@ -55,7 +56,7 @@ class _CurrentAffairsHomePageState extends State<CurrentAffairsHomePage> {
     },
     {
       "title": "Major Tech Company Unveils Revolutionary AI Assistant",
-      "summary":
+      "description":
           "The new AI system can understand and respond to complex human instructions with unprecedented accuracy.",
       "category": "Technology",
       "time": "5 hours ago",
@@ -63,7 +64,7 @@ class _CurrentAffairsHomePageState extends State<CurrentAffairsHomePage> {
     },
     {
       "title": "International Space Station Makes Groundbreaking Discovery",
-      "summary":
+      "description":
           "Astronauts have found evidence of microbial life in samples collected from the station's exterior.",
       "category": "Science",
       "time": "1 day ago",
@@ -71,7 +72,7 @@ class _CurrentAffairsHomePageState extends State<CurrentAffairsHomePage> {
     },
     {
       "title": "Global Economic Forum Predicts Strong Recovery in Coming Year",
-      "summary":
+      "description":
           "Experts forecast a 4.5% growth in global GDP despite recent challenges.",
       "category": "Economy",
       "time": "1 day ago",
@@ -87,8 +88,45 @@ class _CurrentAffairsHomePageState extends State<CurrentAffairsHomePage> {
   ];
 
   String selectedTimeFilter = "Today";
+  Future<void> fetchLatestNews() async {
+    try {
+      final snapshot =
+          await FirebaseFirestore.instance.collection('currentaffairs').get();
+      print('Document count: ${snapshot.docs.length}');
+
+      for (var doc in snapshot.docs) {
+        print('Doc ID: ${doc.id} => ${doc.data()}');
+      }
+
+      final newsList = snapshot.docs.map((doc) {
+        final data = doc.data();
+        return {
+          "title": data['title'] ?? '',
+          "description": data['description'] ?? '',
+          "dateCreated": data['dateCreated'] ?? '',
+          "createdBy": data['createdBy'] ?? '',
+        };
+      }).toList();
+
+      setState(() {
+        print('current afffairs data $newsList');
+        // latestNews = newsList;
+        // isLoading = false;
+      });
+    } catch (e) {
+      print('Error fetching news: $e');
+      setState(() {
+        // isLoading = false;
+      });
+    }
+  }
 
   @override
+  void initState() {
+    super.initState();
+    fetchLatestNews();
+  }
+
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Pallete.blueDarkColor,
@@ -323,7 +361,7 @@ class _CurrentAffairsHomePageState extends State<CurrentAffairsHomePage> {
                       final news = latestNews[index];
                       return _buildNewsCard(
                         title: news["title"],
-                        summary: news["summary"],
+                        description: news["description"],
                         category: news["category"],
                         time: news["time"],
                         imageUrl: news["imageUrl"],
@@ -491,7 +529,7 @@ class _CurrentAffairsHomePageState extends State<CurrentAffairsHomePage> {
 
   Widget _buildNewsCard({
     required String title,
-    required String summary,
+    required String description,
     required String category,
     required String time,
     required String imageUrl,
@@ -576,7 +614,7 @@ class _CurrentAffairsHomePageState extends State<CurrentAffairsHomePage> {
                   ),
                   const SizedBox(height: 8),
                   Text(
-                    summary,
+                    description,
                     style: const TextStyle(
                       color: Colors.white70,
                       fontSize: 14,

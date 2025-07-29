@@ -1,7 +1,5 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:get/get.dart';
 import 'package:iexam/core/theme/app_pallete.dart';
 import 'package:iexam/core/theme/theme.dart';
 import 'package:iexam/core/common/widgets/custom_fields.dart';
@@ -11,9 +9,9 @@ import 'package:iexam/features/auth/view/pages/signup_page.dart';
 import 'package:iexam/features/auth/view/widgets/gradiant_btn.dart';
 import 'package:iexam/features/auth/view/widgets/text_btn.dart';
 import 'package:iexam/features/home/view/pages/bottom_nav.dart';
-import 'package:iexam/features/home/view/pages/home_page.dart';
 import 'package:iexam/features/splash/splash_page.dart';
 import 'package:iexam/firebase_services/auth_services.dart';
+import 'package:iexam/features/auth/services/login.service.dart';
 
 class LoginPage extends StatelessWidget {
   const LoginPage({super.key});
@@ -41,14 +39,19 @@ class _LoginState extends State<_Login> {
   String? _errorMessage;
   login() async {
     setState(() => isLoading = true);
-    User? user = await auth.signinWithEmainAndPassword(
-        emailcontroler.text, passcontroler.text);
-    setState(() => isLoading = false);
-    if (user != null) {
-      successToast(message: 'Log in successfully');
-      Get.offAll(() => BottomNav());
-    } else {
-      showToast(message: 'Something went wrong');
+    try {
+      await LoginService.login(emailcontroler.text, passcontroler.text);
+      Navigator.pushReplacement(
+          context, MaterialPageRoute(builder: (context) => const BottomNav()));
+      showToast(message: "login success");
+      return;
+    } catch (e) {
+      setState(() {
+        isLoading = false;
+        _errorMessage = e.toString();
+      });
+      showToast(message: _errorMessage!);
+      return;
     }
   }
 

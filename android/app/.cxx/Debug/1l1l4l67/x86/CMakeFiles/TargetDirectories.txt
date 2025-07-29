@@ -1,0 +1,2 @@
+D:/Github/iexam/android/app/.cxx/Debug/1l1l4l67/x86/CMakeFiles/edit_cache.dir
+D:/Github/iexam/android/app/.cxx/Debug/1l1l4l67/x86/CMakeFiles/rebuild_cache.dir

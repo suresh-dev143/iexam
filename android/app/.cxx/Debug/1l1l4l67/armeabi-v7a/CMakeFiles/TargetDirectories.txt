@@ -1,0 +1,2 @@
+D:/Github/iexam/android/app/.cxx/Debug/1l1l4l67/armeabi-v7a/CMakeFiles/edit_cache.dir
+D:/Github/iexam/android/app/.cxx/Debug/1l1l4l67/armeabi-v7a/CMakeFiles/rebuild_cache.dir
